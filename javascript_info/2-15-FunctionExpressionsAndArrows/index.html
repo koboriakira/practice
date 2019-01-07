@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        const ask = (question, yes, no) => confirm(question) ? yes() : no();
+        const SHOW_AGREE = () => alert("You agreed.");
+        const SHOW_DISAGREE = () => alert("You canceled the execution.");
+        ask("Do you agree?", SHOW_AGREE, SHOW_DISAGREE);
+
+        // function ask(question, yes, no) {
+        //     if (confirm(question)) yes()
+        //     else no();
+        // }
+
+        // ask(
+        //     "Do you agree?",
+        //     function() { alert("You agreed."); },
+        //     function() { alert("You canceled the execution."); }
+        // );
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
