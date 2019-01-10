@@ -20,6 +20,56 @@
 
         delete user.name;
         console.log(user);
+
+        /**********************************************************/
+
+        let isEmpty = (schedule) => {
+            for (let key in schedule) {
+                return true;
+            }
+            return false;
+        }
+
+        let schedule = {};
+        // alert(isEmpty(schedule));
+        schedule["8:30"] = "get up";
+        // alert(isEmpty(schedule));
+
+        /**********************************************************/
+
+        let sum = (salaries) => {
+            let sum = 0;
+            for (let name in salaries) {
+                sum += salaries[name];
+            }
+            return sum;
+        }
+
+        let salaries = {
+            John: 100,
+            Ann: 160,
+            Pete: 130,
+        };
+
+        // alert( sum(salaries) );
+
+        /**********************************************************/
+
+        let multiplyNumeric = (menu) => {
+            for (let key in menu) {
+                if (typeof menu[key] !== "number") continue;
+                menu[key] *= 2;
+            }
+        };
+
+        let menu = {
+            width: 200,
+            height: 300,
+            title: "My menu",
+        };
+
+        multiplyNumeric(menu);
+        console.log(menu);
     </script>
 </head>
 <body>
