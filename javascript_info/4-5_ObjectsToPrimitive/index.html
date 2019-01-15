@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let user = {
+            name: "John",
+            money: 1000,
+
+            [Symbol.toPrimitive](hint) {
+                alert(`hint: ${hint}`);
+                return hint == "string" ? `{name: "${this.name}"}` : this.money;
+            }
+        };
+
+        alert(user);
+        alert(+user);
+        alert(user + 500);
+    </script>
+</body>
+
+</html>
