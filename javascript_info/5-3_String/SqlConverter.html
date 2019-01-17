@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="SqlConverter.js"></script>
+  </head>
+  <body>
+    <div style="width: 700px; margin: 4em auto;">
+      <p>Enter a sql script.</p>
+      <textarea name="sql" id="sql" cols="30" rows="10"></textarea>
+      <p>
+        <input
+          type="submit"
+          name="button"
+          onclick="onClickButton()"
+          value="Convert!!"
+        />
+      </p>
+      <hr />
+      <p>Converted sql.</p>
+      <p><textarea name="" id="result" cols="30" rows="10"></textarea></p>
+    </div>
+  </body>
+</html>
