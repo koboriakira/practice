@@ -17,7 +17,15 @@
           }
         }
       };
-      alert(readNumber());
+      //   alert(readNumber());
+
+      let random = (min, max) => {
+        let value = min + Math.random() * max - (min - 0.5);
+        return Math.round(value);
+      };
+      alert(random(1, 5));
+      alert(random(1, 5));
+      alert(random(1, 5));
     </script>
   </head>
   <body></body>
