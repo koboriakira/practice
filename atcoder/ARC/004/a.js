@@ -1,4 +1,5 @@
-function main(input) {
+'use strict';
+function Main(input) {
   const line = input
     .split('\n')
     .slice(1, -1)
@@ -13,7 +14,7 @@ function main(input) {
   }
   console.log(Math.sqrt(result));
 }
-// main(require('fs').readFileSync('/dev/stdin', 'utf8'));
+// Main(require('fs').readFileSync('/dev/stdin', 'utf8'));
 const input1 = `3
 1 1
 2 4
