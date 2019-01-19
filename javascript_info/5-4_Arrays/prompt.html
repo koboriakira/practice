@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    let value = prompt(); // 数字や空白を入力したり、キャンセルしたり、数値以外の文字列を入れたり
+    if (value === null) {
+      console.log("value is null");
+    } else if (value === "") {
+      console.log("value is empty");
+    } else if (!isFinite(value)) { // valueはメソッド内で数値に自動変換される
+      console.log("value is not a number");
+    } else {
+      console.log(+value);
+    }
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
