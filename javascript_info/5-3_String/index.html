@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    let ucFirst = (str) => {
+      return str[0].toUpperCase() + str.slice(1);
+    }
+    // alert(ucFirst("john") === "John")
+
+    let checkSpam = (str) => {
+      const upperCase = str.toUpperCase();
+      alert(upperCase.includes('VIAGRA') || upperCase.includes('XXX'));
+    }
+    // checkSpam('buy ViAgRA now')
+    // checkSpam('free xxxxx');
+    // checkSpam("innocent rabbit");
+
+    let truncate = (str, maxLength) => {
+      if (str.length <= maxLength) {
+        return str;
+      }
+      return str.slice(0, maxLength) + '…';
+    }
+    // alert(truncate("What I'd like to tell on this topic is:", 20));
+    // alert(truncate("Hi everyone!", 20));
+
+    let extractCurrencyValue = (doller) => +doller.slice(1);
+    alert(extractCurrencyValue('$120') === 120);
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
