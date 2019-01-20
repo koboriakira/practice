@@ -18,6 +18,68 @@
         return arr.filter(item => item >= 1 && item <= 4);
       };
       console.log(filterRange([5, 3, 8, 1]));
+
+      // let john = { name: 'John', surname: 'Smith', id: 1 };
+      // let pete = { name: 'Pete', surname: 'Hunt', id: 2 };
+      // let mary = { name: 'Mary', surname: 'Key', id: 3 };
+
+      // let users = [john, pete, mary];
+
+      // let usersMapped = users.map(user => ({
+      //   fullName: `${user.name} ${user.surname}`,
+      //   id: user.id
+      // }));
+
+      // console.log(usersMapped[0].id); // 1
+      // console.log(usersMapped[0].fullName); // John Smith
+
+      console.log(NaN === NaN); // -> false
+
+      let array = [1, 3, NaN, 7, 9];
+      console.log(array.indexOf(NaN)); // -> -1
+
+      let john = { name: 'John', age: 25 };
+      let pete = { name: 'Pete', age: 30 };
+      let mary = { name: 'Mary', age: 28 };
+
+      let arr = [john, pete, mary];
+
+      let sortByName = arr => {
+        arr.sort((a, b) => {
+          if (a.name < b.name) return 1;
+          if (a.name === b.name) return 0;
+          if (a.name > b.name) return -1;
+        });
+      };
+      sortByName(arr);
+
+      // now: [john, mary, pete]
+      alert(arr[1].name); // Mary
+
+      let getAverageAge = arr => {
+        return arr.reduce((sum, user) => sum + user.age, 0) / arr.length;
+      };
+      console.log(getAverageAge(arr));
+
+      let unique = arr => {
+        return arr.reduce((res, item) => {
+          if (res.indexOf(item) === -1) res.push(item);
+          return res;
+        }, []);
+      };
+      let strings = [
+        'Hare',
+        'Krishna',
+        'Hare',
+        'Krishna',
+        'Krishna',
+        'Krishna',
+        'Hare',
+        'Hare',
+        ':-O'
+      ];
+
+      alert(unique(strings)); // Hare, Krishna, :-O
     </script>
   </head>
   <body></body>
