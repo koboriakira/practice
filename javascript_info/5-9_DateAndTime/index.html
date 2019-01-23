@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    // Feb 20, 2012, 3:12am.
+    console.log(new Date(2012, 1, 20, 3, 12, 0));
+
+    // ‘MO’, ‘TU’, ‘WE’, ‘TH’, ‘FR’, ‘SA’, ‘SU’.
+    let getWeekDay = (date) => {
+      const weekDayArray = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+      return weekDayArray[date.getDay()];
+    }
+    let date2 = new Date(2012, 0, 3); // 3 Jan 2012
+    console.log(getWeekDay(date2)); // should output "TU"
+
+    let date = new Date(2015, 0, 2);
+    let getDateAgo = (date, day) => {
+      let dateAgo = new Date(date);
+      dateAgo.setDate(dateAgo.getDate() - day);
+      return dateAgo.getDate();
+    }
+
+    console.log(getDateAgo(date, 1)); // 1, (1 Jan 2015)
+    console.log(getDateAgo(date, 2)); // 31, (31 Dec 2014)
+    console.log(getDateAgo(date, 365)); // 2, (2 Jan 2014)
+
+    let getLastDayOfMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+    console.log(getLastDayOfMonth(2012, 1));
+
+    let getSecondsToday = () => {
+      let now = new Date(Date.now());
+      return now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+    };
+    let getSecondsToTomorrow = () => {
+      return 24 * 3600 - getSecondsToday();
+    }
+    console.log(getSecondsToday());
+    console.log(getSecondsToTomorrow());
+
+    let formatDate = (date) => {
+      const SECONDS = 1000;
+      const MINUTES = 60 * SECONDS;
+      const HOURS = 60 * MINUTES;
+      let now = Date.now();
+      let diff = now - date.getTime();
+      if (diff <= SECONDS) {
+        return "right now";
+      } else if (diff <= MINUTES) {
+        return `${diff / SECONDS} sec. ago`;
+      } else if (diff <= HOURS) {
+        return `${diff / MINUTES} min. ago`;
+      }
+
+      let twoDijits = (val) => ('0' + val).slice(-2);
+      const d = {
+        month: twoDijits(date.getMonth() + 1),
+        date: twoDijits(date.getDate()),
+        year: twoDijits(date.getFullYear()),
+        hour: twoDijits(date.getHours()),
+        minutes: twoDijits(date.getMinutes())
+      }
+      return `${d.month}.${d.date}.${d.year} ${d.hour}:${d.minutes}`;
+    }
+
+    console.log(formatDate(new Date(new Date - 1))); // "right now"
+
+    console.log(formatDate(new Date(new Date - 30 * 1000))); // "30 sec. ago"
+
+    console.log(formatDate(new Date(new Date - 5 * 60 * 1000))); // "5 min. ago"
+
+    // yesterday's date like 31.12.2016, 20:00
+    console.log(formatDate(new Date(new Date - 86400 * 1000)));
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

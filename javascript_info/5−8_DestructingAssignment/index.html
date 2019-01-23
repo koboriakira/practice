@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    let user = {
+      name: "John",
+      years: 30
+    };
+
+    let {
+      name,
+      years: age,
+      isAdmin = false,
+    } = user;
+
+    console.log(name); // John
+    console.log(age); // 30
+    console.log(isAdmin); // false
+
+    let salaries = {
+      "John": 100,
+      "Pete": 300,
+      "Mary": 250
+    };
+
+    let topSalary = (salaries) => {
+      let ans = {
+        name: '',
+        salary: 0
+      }
+      Object.entries(salaries).forEach(([name, salary]) => {
+        if (salary > ans.salary) {
+          ans = {
+            name,
+            salary
+          }
+        }
+      })
+      return ans.name;
+    };
+    alert(topSalary(salaries));
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
