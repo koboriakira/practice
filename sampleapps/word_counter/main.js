@@ -1,40 +1,5 @@
 let globalResult;
 
-let exceptTagsAndSymbols = line => {
-  const REGEXP_TAG = /<[/]?\w+>/g;
-  const REGEXP_CODE = /`\w*`/g;
-  const REGEXP_SYMBOL = /[();:,.\[\]*#/=`!?|"<>{}+_&\\$%…”’€¥~^@æ«≤≥÷`]/g;
-  const REGEXP_ONEWORD = /\b\w\b/g;
-  const REGEXP_NUM = /\d+/g;
-  return line
-    .replace(REGEXP_TAG, '')
-    .replace(REGEXP_CODE, '')
-    .replace(REGEXP_SYMBOL, '')
-    .replace(REGEXP_NUM, '')
-    .replace(REGEXP_ONEWORD, ' ')
-    .toLowerCase();
-};
-
-let count = (word, words) => {
-  return words.has(word) ? words.get(word) + 1 : 1;
-};
-
-let countWord = (line, words) => {
-  exceptTagsAndSymbols(line)
-    .split(' ')
-    .forEach(word => {
-      words.set(word, count(word, words));
-    });
-  return words;
-};
-
-let countWords = (data, words) => {
-  data.split('\n').forEach(line => {
-    words = countWord(line, words);
-  });
-  return words;
-};
-
 let loadByReader = file => {
   return new Promise((resolve, reject) => {
     let reader = new FileReader();
@@ -45,14 +10,15 @@ let loadByReader = file => {
   });
 };
 
-let loadFiles = (files, loadFile, func) => {
+let loadFiles = (files, loadMethod, func) => {
   return new Promise((resolve, reject) => {
-    let words = new Map();
+    let prev;
     for (let i = 0; i < files.length; i++) {
-      loadFile(files[i]).then(result => {
-        words = func(result, words);
+      console.debug(`Load ${files[i].name}`)
+      loadMethod(files[i]).then(result => {
+        prev = func(result, prev);
         if (i === files.length - 1) {
-          resolve(words);
+          resolve(prev);
         }
       });
     }
@@ -70,19 +36,9 @@ let printResult = (result, id) => {
   document.getElementById(id).innerHTML = text;
 };
 
-let extractTargetFiles = files => {
-  let result = [];
-  for (let i = 0; i < files.length; i++) {
-    if (files[i].name === 'article.md') {
-      result.push(files[i]);
-    }
-  }
-  return result;
-}
-
 let event = e => {
   if (isUnsupported()) return;
-  let targetFiles = extractTargetFiles(e.target.files);
+  let targetFiles = extractTargetFiles(e.target.files, ['article.md']);
   if (isEmptyFiles(targetFiles)) return;
 
   document.getElementById('result').innerHTML = '<span>now loading...</span>';
