@@ -7,6 +7,9 @@ let isEmptyFiles = files => {
 }
 
 let extractTargetFiles = (files, names) => {
+  if (files === undefined) {
+    return [];
+  }
   let result = [];
   for (let i = 0; i < files.length; i++) {
     if (names.indexOf(files[i].name) > -1) {

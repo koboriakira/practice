@@ -20,10 +20,20 @@
 </head>
 
 <body>
-  <h1>Markdown's Word Counter</h1>
+  <h1>単語カウンタ</h1>
   <p>
-    <input type="file" name="files[]" id="file" webkitdirectory>
+    対象のディレクトリを指定。<br />
+    <input type="file" name="files[]" id="file" webkitdirectory><br /></p>
+  <p>
+    読み込みたいファイル名を指定（複数可）<br />
+    <textarea name="fileName" id="filename" cols="60" rows="10">article.md</textarea>
   </p>
+  <p>オプション
+    <ul>
+      <li>バッククォートで囲まれた単語を除く: <input type="checkbox" name="removeBackquote" id="option1" checked="on"></li>
+    </ul>
+  </p>
+  <p><input type="submit" id="submit" value="Execute!!!"></p>
   <div id="result"></div>
 
   <p>
@@ -32,7 +42,9 @@
   </p>
   <script>
     let file = document.getElementById('file');
-    file.addEventListener('change', event, false);
+    file.addEventListener('change', saveFiles, false);
+    let submit = document.getElementById('submit');
+    submit.addEventListener('click', execute, false);
 
   </script>
 </body>
