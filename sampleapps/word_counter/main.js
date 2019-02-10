@@ -1,4 +1,6 @@
 let files;
+const ID = 'result';
+
 
 let saveFiles = e => {
   if (isUnsupported()) return;
@@ -14,5 +16,5 @@ let execute = () => {
   setRegExp();
 
   // 対象ファイル、ファイルの読み込み方、各ファイルのデータに対する処理、結果の表示方法をそれぞれ指定する。
-  loadFiles(targetFiles, loadByReader, countWords, printHtml);
+  loadFiles(targetFiles, loadByReader, countWords, printResultAsCard);
 }

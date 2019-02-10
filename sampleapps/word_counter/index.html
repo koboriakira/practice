@@ -11,6 +11,9 @@
   <script src="js/uikit-icons.min.js"></script>
   <script src="./loadFiles.js"></script>
   <script src="./printResult.js"></script>
+  <script src="./printResultAsCard.js"></script>
+  <script src="./printResultAsList.js"></script>
+  <script src="./printResultAsTable.js"></script>
   <script src="./filterLine.js"></script>
   <script src="./countWord.js"></script>
   <script src="./ignorewords.js"></script>
@@ -21,14 +24,14 @@
 
 <body>
 
-  <h1 class="uk-heading-line uk-text-center"><span>単語カウンタ</span></h1>
+  <h1 class="uk-heading-line uk-text-center" style="margin: 1em 0;"><span>単語カウンタ</span></h1>
   <div class="uk-margin-auto uk-text-left" style="width: 800px;">
 
     <div class="uk-margin" uk-form-custom>
       <input type="file" id="file" webkitdirectory>
-      <button class="uk-button uk-button-default" type="button" tabindex="-1"><span uk-icon="folder"></span> フォルダを指定</button>
+      <button class="uk-button uk-button-primary" type="button" tabindex="-1"><span uk-icon="folder"></span> フォルダを指定</button>
     </div>
-    <textarea name="fileName" id="filename" rows="5" class="uk-textarea uk-margin" placeholder="読み込みたいファイル名を指定（改行区切りで複数設定できます。）"></textarea>
+    <textarea name="fileName" id="filename" rows="5" class="uk-textarea uk-margin" placeholder="読み込みたいファイル名を指定（改行区切りで複数設定できます。）">article.md</textarea>
     </p>
     <div class="uk-margin">
       <h3 class="uk-heading-bullet">オプション</h3>
@@ -39,14 +42,14 @@
         </li>
       </ul>
     </div>
-    <button id="submit" class="uk-button uk-button-default uk-margin">Execute!!!</button>
-  </div>
-  <div id="result"></div>
+    <button id="submit" class="uk-button uk-button-primary uk-margin uk-button-large">Execute!!!</button>
+    <div id="result"></div>
 
-  <p class="uk-text-center">
-    Ignore 1,000 most common US English words.<br />
-    Refer to <a href="https://gist.github.com/deekayen/4148741">deekayen/1-1000.txt</a>
-  </p>
+    <p class="uk-text-center uk-text-small">
+      Ignore 1,000 most common US English words.<br />
+      Refer to <a href="https://gist.github.com/deekayen/4148741">deekayen/1-1000.txt</a>
+    </p>
+  </div>
   <script>
     let file = document.getElementById('file');
     file.addEventListener('change', saveFiles, false);
