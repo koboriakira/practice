@@ -20,23 +20,28 @@
 </head>
 
 <body>
-  <h1>単語カウンタ</h1>
-  <p>
-    対象のディレクトリを指定。<br />
-    <input type="file" name="files[]" id="file" webkitdirectory><br /></p>
-  <p>
-    読み込みたいファイル名を指定（複数可）<br />
-    <textarea name="fileName" id="filename" cols="60" rows="10">article.md</textarea>
-  </p>
-  <p>オプション
-    <ul>
-      <li>バッククォートで囲まれた単語を除く: <input type="checkbox" name="removeBackquote" id="option1" checked="on"></li>
-    </ul>
-  </p>
-  <p><input type="submit" id="submit" value="Execute!!!"></p>
+  <h1 class="uk-heading-line uk-text-center"><span>単語カウンタ</span></h1>
+  <div class="uk-margin-auto uk-text-left" style="width: 800px;">
+    <div class="uk-margin" uk-form-custom>
+      <input type="file" id="file" webkitdirectory>
+      <button class="uk-button uk-button-default" type="button" tabindex="-1">フォルダを指定</button>
+    </div>
+    <textarea name="fileName" id="filename" rows="5" class="uk-textarea uk-margin" placeholder="読み込みたいファイル名を指定（改行区切りで複数設定できます。）"></textarea>
+    </p>
+    <div class="uk-margin">
+      <h3 class="uk-heading-bullet">オプション</h3>
+      <ul class="uk-list">
+        <li>
+          <span>バッククォートで囲まれた単語を除く:</span>
+          <input type="checkbox" name="removeBackquote" id="option1" checked="on" class="uk-checkbox">
+        </li>
+      </ul>
+    </div>
+    <button id="submit" class="uk-button uk-button-default uk-margin">Execute!!!</button>
+  </div>
   <div id="result"></div>
 
-  <p>
+  <p class="uk-text-center">
     Ignore 1,000 most common US English words.<br />
     Refer to <a href="https://gist.github.com/deekayen/4148741">deekayen/1-1000.txt</a>
   </p>
