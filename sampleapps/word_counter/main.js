@@ -1,6 +1,8 @@
+let globalResult;
+
 let exceptTagsAndSymbols = line => {
   const REGEXP_TAG = /<[/]?[a-z]+>/g;
-  const REGEXP_SYMBOL = /[();:,.\[\]]/g;
+  const REGEXP_SYMBOL = /[();:,.\[\]*#]/g;
   return line
     .replace(REGEXP_TAG, '')
     .replace(REGEXP_SYMBOL, '')
@@ -20,15 +22,10 @@ let countWord = (line, words) => {
   return words;
 };
 
-let startsWithTagP = line => {
-  return line.slice(0, 3) === '<p>';
-};
-
 let countWords = (data, words) => {
   data.split('\n').forEach(line => {
-    if (startsWithTagP(line)) {
-      words = countWord(line, words);
-    }
+    console.debug(line);
+    words = countWord(line, words);
   });
   return words;
 };
@@ -68,16 +65,31 @@ let printResult = (result, id) => {
   document.getElementById(id).innerHTML = text;
 };
 
+let extractTargetFiles = files => {
+  let result = [];
+  for (let i = 0; i < files.length; i++) {
+    if (files[i].name === 'article.md') {
+      result.push(files[i]);
+    }
+  }
+  return result;
+}
+
 let event = e => {
   if (isUnsupported()) return;
-  if (isEmptyFiles(e.target.files)) return;
+  let targetFiles = extractTargetFiles(e.target.files);
+  if (isEmptyFiles(targetFiles)) return;
 
-  loadFiles(e.target.files, loadByReader, countWords).then(result => {
+  document.getElementById('result').innerHTML = '<span>now loading...</span>';
+
+  loadFiles(targetFiles, loadByReader, countWords).then(result => {
+    console.debug(result);
     let orderedResultArray = Array.from(result.entries()).sort((a, b) => {
       if (a[1] - b[1] > 0) return -1;
       if (a[1] - b[1] < 0) return 1;
       return 0;
     });
     printResult(orderedResultArray, 'result');
+    globalResult = orderedResultArray;
   });
 };
