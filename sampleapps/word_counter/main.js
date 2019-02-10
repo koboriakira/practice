@@ -1,6 +1,6 @@
 let exceptTagsAndSymbols = line => {
   const REGEXP_TAG = /<[/]?[a-z]+>/g;
-  const REGEXP_SYMBOL = /[();:,.]/g;
+  const REGEXP_SYMBOL = /[();:,.\[\]]/g;
   return line
     .replace(REGEXP_TAG, '')
     .replace(REGEXP_SYMBOL, '')
@@ -60,11 +60,14 @@ let loadFiles = (files, loadFile, func) => {
 let printResult = (result, id) => {
   let text = '<ul>';
   result.forEach(value => {
-    text = text + `<li>${value[0]} : ${value[1]}</li>`;
+    if (IGNORE_WORDS.indexOf(value[0]) === -1) {
+      text = text + `<li>${value[0]} : ${value[1]}</li>`;
+    }
   });
   text = text + '</ul>';
   document.getElementById(id).innerHTML = text;
 };
+
 let event = e => {
   if (isUnsupported()) return;
   if (isEmptyFiles(e.target.files)) return;
