@@ -1,5 +1,3 @@
-let words = new Map();
-
 let isUnsupported = () => {
   let isSupported = window.File && window.FileReader && window.FileList && window.Blob;
   return !isUnsupported;
@@ -11,32 +9,52 @@ let exceptTagsAndSymbols = line => {
   return line.replace(REGEXP_TAG, '').replace(REGEXP_SYMBOL, '').toLowerCase();
 }
 
-let countWord = line => {
+let count = (word, words) => {
+  return (words.has(word)) ? words.get(word) + 1 : 1;
+}
+
+let countWord = (line, words) => {
   exceptTagsAndSymbols(line).split(' ').forEach(word => {
-    if (words.has(word)) {
-      words.set(word, words.get(word) + 1);
-    } else {
-      words.set(word, 1);
+    words.set(word, count(word, words));
+  });
+  return words;
+}
+
+let startsWithTagP = line => {
+  return line.slice(0, 3) === '<p>';
+}
+
+let countWords = (data, words) => {
+  data.split('\n').forEach(line => {
+    if (startsWithTagP(line)) {
+      words = countWord(line, words);
     }
   });
+  return words;
 }
 
-let loadFileByReader = file => {
-  let reader = new FileReader();
-  reader.onload = data => {
-    data.target.result.split('\n').forEach(line => {
-      if (line.slice(0, 3) === '<p>') {
-        countWord(line);
-      }
-    });
-  }
-  reader.readAsText(file);
+let loadByReader = file => {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.onload = data => {
+      resolve(data.target.result);
+    }
+    reader.readAsText(file);
+  })
 }
 
-let loadFiles = (files, loadFile) => {
-  for (let i = 0; i < files.length; i++) {
-    loadFile(files[i]);
-  }
+let loadFiles = (files, loadFile, func) => {
+  return new Promise((resolve, reject) => {
+    let words = new Map();
+    for (let i = 0; i < files.length; i++) {
+      loadFile(files[i]).then(result => {
+        words = func(result, words);
+        if (i === files.length - 1) {
+          resolve(words);
+        }
+      });
+    }
+  });
 }
 
 let event = e => {
@@ -48,6 +66,5 @@ let event = e => {
     alert('ファイルが存在しません')
     return;
   }
-  loadFiles(e.target.files, loadFileByReader);
-  console.log(words);
+  loadFiles(e.target.files, loadByReader, countWords).then(console.log);
 }
