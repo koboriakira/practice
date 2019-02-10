@@ -1,11 +1,17 @@
 let globalResult;
 
 let exceptTagsAndSymbols = line => {
-  const REGEXP_TAG = /<[/]?[a-z]+>/g;
-  const REGEXP_SYMBOL = /[();:,.\[\]*#]/g;
+  const REGEXP_TAG = /<[/]?\w+>/g;
+  const REGEXP_CODE = /`\w*`/g;
+  const REGEXP_SYMBOL = /[();:,.\[\]*#/=`!?|"<>{}+_&\\$%…”’€¥~^@æ«≤≥÷`]/g;
+  const REGEXP_ONEWORD = /\b\w\b/g;
+  const REGEXP_NUM = /\d+/g;
   return line
     .replace(REGEXP_TAG, '')
+    .replace(REGEXP_CODE, '')
     .replace(REGEXP_SYMBOL, '')
+    .replace(REGEXP_NUM, '')
+    .replace(REGEXP_ONEWORD, ' ')
     .toLowerCase();
 };
 
@@ -24,7 +30,6 @@ let countWord = (line, words) => {
 
 let countWords = (data, words) => {
   data.split('\n').forEach(line => {
-    console.debug(line);
     words = countWord(line, words);
   });
   return words;
@@ -83,7 +88,6 @@ let event = e => {
   document.getElementById('result').innerHTML = '<span>now loading...</span>';
 
   loadFiles(targetFiles, loadByReader, countWords).then(result => {
-    console.debug(result);
     let orderedResultArray = Array.from(result.entries()).sort((a, b) => {
       if (a[1] - b[1] > 0) return -1;
       if (a[1] - b[1] < 0) return 1;
