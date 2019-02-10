@@ -6,7 +6,7 @@ let createCardHtml = (word, count) => {
   let wordClass = getWordClass(count);
   let wordHtml = surround(word, 'span', wordClass);
   let countHtml = '<br/>' + surround(count + '', 'span', CLASS_COUNT);
-  return surround(wordHtml + countHtml, 'div', CLASS_CARD);
+  return `<a href="https://eow.alc.co.jp/search?q=${word}" class="uk-link-reset" target="_blank" rel="noopener noreferrer">` + surround(wordHtml + countHtml, 'div', CLASS_CARD) + `</a>`;
 }
 let printResultAsCard = (result) => {
   let orderedResultArray = sortResult(result.entries());
