@@ -1,9 +1,3 @@
-let isUnsupported = () => {
-  let isSupported =
-    window.File && window.FileReader && window.FileList && window.Blob;
-  return !isUnsupported;
-};
-
 let exceptTagsAndSymbols = line => {
   const REGEXP_TAG = /<[/]?[a-z]+>/g;
   const REGEXP_SYMBOL = /[();:,.]/g;
@@ -72,14 +66,9 @@ let printResult = (result, id) => {
   document.getElementById(id).innerHTML = text;
 };
 let event = e => {
-  if (isUnsupported()) {
-    alert('File APIに未対応');
-    return;
-  }
-  if (e.target.files.length === 0) {
-    alert('ファイルが存在しません');
-    return;
-  }
+  if (isUnsupported()) return;
+  if (isEmptyFiles(e.target.files)) return;
+
   loadFiles(e.target.files, loadByReader, countWords).then(result => {
     let orderedResultArray = Array.from(result.entries()).sort((a, b) => {
       if (a[1] - b[1] > 0) return -1;
