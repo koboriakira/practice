@@ -10,6 +10,7 @@ let createCardHtml = (word, count) => {
 }
 let printResultAsCard = (result) => {
   let orderedResultArray = sortResult(result.entries());
+  setFrequentlyCount(orderedResultArray);
   let innerHtml = orderedResultArray.reduce((prev, cur) => {
     let [word, count] = cur;
     if (isIgnored(word)) return prev;

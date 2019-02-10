@@ -12,7 +12,6 @@ let loadFiles = (files, loadMethod, func, print) => {
   return new Promise((resolve, reject) => {
     let prev;
     for (let i = 0; i < files.length; i++) {
-      console.debug(`Load ${files[i].name}`);
       loadMethod(files[i]).then(data => {
         // reduceのようにファイルをひとつずつ処理する
         prev = func(data, prev);
@@ -21,6 +20,7 @@ let loadFiles = (files, loadMethod, func, print) => {
         if (i === files.length - 1) {
           let printResult = print(prev);
           resolve(printResult);
+          return;
         }
       });
     }
